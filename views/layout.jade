@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    title= appTitle
+    script(type="text/javascript", src="/js/jquery-2.0.3.min.js")
+    link(rel='stylesheet', href='/css/bootstrap-3.0.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/bootstrap-3.0.2/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/css/style.css')
+    script(type="text/javascript", src="/css/bootstrap-3.0.2/js/bootstrap.min.js")
+    script(type="text/javascript", src="/js/blog.js")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  body
+    #wrap
+      .container
+        h1.page-header= appTitle
+        p.lead Welcome to BEng - a simple Blog Engine by&nbsp;
+          a(href='http://mishrabhinav.com') mishrabhinav
+          |. Please enjoy.
+        block page
+        block alert
+          div.alert.alert-warning.hidden
+        .content
+        block header
+          div
+            include includes/menu
+
+          block content
+    block footer
+      footer
+        .container
+          p
+            | Copyright &copy; 2016 | Issues? Submit to
+            a(href="https://github.com/mishrabhinav/BEng/issues")  GitHub
+            | .
