@@ -21,7 +21,7 @@ exports.login = function(req, res, next) {
  */
 
 exports.logout = function(req, res, next) {
-
+  res.session.destroy();
   res.redirect('/');
 };
 
@@ -31,6 +31,20 @@ exports.logout = function(req, res, next) {
  */
 
 exports.authenticate = function(req, res, next) {
-  res.redirect('/admin');
+  if (!req.body.email || !req.body.password)
+    return res.render('login', {
+      error: 'Please enter you email and password.'
+    });
 
+  req.collections.users.findOne({
+    email: req.body.email,
+    password: req.body.password
+  }, function(error, user){
+       if(error) return next(error);
+       if(!user) return res.render('login', {error: 'Incorrect email & password combination.'});
+
+  req.session.user = user;
+  req.session.admin = user.admin;
+  res.redirect('/admin');
+  })
 };
