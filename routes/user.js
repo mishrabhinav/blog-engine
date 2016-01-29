@@ -36,7 +36,7 @@ exports.authenticate = function(req, res, next) {
       error: 'Please enter you email and password.'
     });
 
-  req.collections.users.findOne({
+  req.models.User.findOne({
     email: req.body.email,
     password: req.body.password
   }, function(error, user){

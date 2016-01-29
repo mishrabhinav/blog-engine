@@ -2,14 +2,12 @@ var express = require('express');
 var routes = require('./routes');
 var path = require('path');
 var http = require('http');
-var mongoskin = require('mongoskin');
+var mongoose = require('mongoose');
+var models = require('./models');
 var dbUrl = process.env.MONGOHQ_URL || 'mongodb://@localhost:27017/blog';
-var db = mongoskin.db(dbUrl, {safe: true});
-var collections = {
-      articles: db.collection('articles'),
-      users: db.collection('users')
-};
+var db = mongoose.connect(dbUrl, {safe: true});
 
+//Express.js Middleware
 var session = require('express-session');
 var logger = require('morgan');
 var errorHandler = require('errorhandler');
@@ -22,8 +20,8 @@ app.locals.appTitle = 'BEng';
 
 // view engine setup
 app.use(function(req, res, next) {
-  if (!collections.articles || !collections.users) return next(new Error('No collections'));
-  req.collections = collections;
+  if (!models.Article || !models.User) return next(new Error('No collections.'));
+  req.models = models;
   return next();
 });
 
@@ -79,6 +77,7 @@ app.all('*', function(req, res) {
   res.send(404)
 });
 
+//HTTP Server
 var server = http.createServer(app);
 var boot = function () {
   server.listen(app.get('port'), function(){
