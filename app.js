@@ -61,6 +61,7 @@ app.get('/', routes.index);
 app.get('/login', routes.user.login);
 app.post('/login', routes.user.authenticate);
 app.get('/logout', routes.user.logout);
+app.post('/logout', routes.user.add);
 app.get('/register', routes.user.register);
 app.get('/admin', authorize, routes.article.admin);
 app.get('/post', authorize, routes.article.post);

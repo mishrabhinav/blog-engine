@@ -20,6 +20,17 @@ exports.register = function (req, res, next) {
   res.render('register');
 };
 
+exports.add = function (req, res, next) {
+  if (!req.body.email) return next(new Error('Email ID not entered.'));
+  var user = req.body.email;
+  user.password = req.body.password;
+  user.admin = false;
+  req.models.User.insert(user, function(error, userResponse) {
+    if(error) return next(error);
+    res.send(userResponse);
+  });
+};
+
 /*
  * GET logout route.
  */
