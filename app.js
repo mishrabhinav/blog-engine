@@ -16,7 +16,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 var app = express();
-app.locals.appTitle = 'BEng';
+app.locals.appTitle = 'Blog Engine';
 
 // view engine setup
 app.use(function(req, res, next) {
