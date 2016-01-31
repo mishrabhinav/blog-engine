@@ -22,10 +22,10 @@ exports.register = function (req, res, next) {
 
 exports.add = function (req, res, next) {
   if (!req.body.email) return next(new Error('Email ID not entered.'));
-  var user = req.body.email;
-  user.password = req.body.password;
-  user.admin = false;
-  req.models.User.insert(user, function(error, userResponse) {
+  var email = req.body.email;
+  var password = req.body.password;
+  var admin = false;
+  req.models.User.insert({email, password, admin}, function(error, userResponse) {
     if(error) return next(error);
     res.send(userResponse);
   });
