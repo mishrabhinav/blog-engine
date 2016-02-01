@@ -19,7 +19,7 @@ exports.add = function(req, res, next) {
   if (!req.body.article) return next(new Error('No article payload.'));
   var article = req.body.article;
   article.published = false;
-  req.models.Article.insert(article, function(error, articleResponse) {
+  req.models.Article.create(article, function(error, articleResponse) {
     if (error) return next(error);
     res.send(articleResponse);
   });
@@ -60,7 +60,7 @@ exports.postArticle = function(req, res, next) {
     text: req.body.text,
     published: false
   };
-  req.models.Article.insert(article, function(error, articleResponse) {
+  req.models.Article.create(article, function(error, articleResponse) {
     if (error) return next(error);
     res.render('post', {error: 'Article was added. Publish it on Admin page.'});
   });
